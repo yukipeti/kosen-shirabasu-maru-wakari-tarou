@@ -3,6 +3,7 @@ import json
 from dotenv import load_dotenv
 import google.generativeai as genai
 
+
 load_dotenv()
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=GOOGLE_API_KEY)
@@ -27,8 +28,8 @@ while True:
         あなたは木更津高専のシラバス情報を提供するチャットボットです。
         以下のシラバス情報を基に質問に簡潔に答えてください。シラバス情報の中にないものは答えないでください。
         ユーザーが追加で質問してきた際は必ず前の結果を参照している可能性を文脈から考慮して回答してください。
-        シラバス情報{syllabus_data}
+        シラバス情報{syllabus_data_str}
         質問: {prompt}
     """
     )
-    print("Gemini-2.5-Flash:", response.text)
+    print("🤖:", response.text)
