@@ -20,7 +20,7 @@ print("""
 exit か quit と入力すると終了します。
 """)
 while True:
-    prompt = input("You: ")
+    prompt = input("You: ", encoding="utf-8")
     if prompt.lower() in ['exit', 'quit']:
         break
     response = gemini_flash.generate_content(

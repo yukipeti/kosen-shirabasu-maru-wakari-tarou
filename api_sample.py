@@ -12,12 +12,15 @@ load_dotenv()
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=GOOGLE_API_KEY)
 
+
 gemini_flash = genai.GenerativeModel("gemini-2.5-flash")
 
 syllabus_data_path = "syllabus_data.json"
 with open(syllabus_data_path, "r", encoding="utf-8") as f:
     syllabus_data_list = json.load(f)
     syllabus_data_str = json.dumps(syllabus_data_list, ensure_ascii=False)
+
+chat = gemini_flash.start_chat(history=[])
 
 class gemini_prompt(BaseModel):
     prompt: str
@@ -45,7 +48,7 @@ def index():
 @app.post("/ask_syllabus")
 def response(data: gemini_prompt):
     prompt = data.prompt
-    answer: str = gemini_flash.generate_content(
+    answer: str = chat.send_message(
         f"""
         あなたは木更津高専のシラバス情報を提供するチャットボットです。
         以下のシラバス情報を基に質問に簡潔に答えてください。シラバス情報の中にないものは答えないでください。
